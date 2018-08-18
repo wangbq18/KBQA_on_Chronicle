@@ -1,4 +1,4 @@
-# CADAL项目-基于中国古代编年史的KBQA
+# 基于中国古代编年史的KBQA
 
 ## KB_construction
 
