@@ -75,39 +75,39 @@ sparql_point = JenaFuseki()
 #######################################################################################
 # Define Relation Keyword Mapping
 #######################################################################################
-personal_info_map = {'personAppellation': [u'³ÆÎ½', u'³ÆºÅ', u'³Æºô', u'ÃûºÅ'],
-                     'alternateNameOrPreviouslyUsedName': [u'±ðÃû', u'ÔøÓÃÃû'],
-                     'courtesyName': [u'×Ö'],
-                     'dharmaName': [u'·¨ºÅ'],
-                     'posthumousName': [u'ÚÖºÅ'],
-                     'personDeathAge': [u'ÏíÄê'],
-                     'personEthnicity': [u'ÖÖ×å', u'Ãñ×å'],
-                     'dynasty': [u'³¯´ú'],
-                     'personBirthYear': [u'³öÉú', u'³öÉúÈÕÆÚ', u'ÉúÈÕ', u'µ®³½'],
-                     'personDeathYear': [u'¼ÉÈÕ']}
+personal_info_map = {'personAppellation': [u'称谓', u'称号', u'称呼', u'名号'],
+                     'alternateNameOrPreviouslyUsedName': [u'别名', u'曾用名'],
+                     'courtesyName': [u'字'],
+                     'dharmaName': [u'法号'],
+                     'posthumousName': [u'谥号'],
+                     'personDeathAge': [u'享年'],
+                     'personEthnicity': [u'种族', u'民族'],
+                     'dynasty': [u'朝代'],
+                     'personBirthYear': [u'出生', u'出生日期', u'生日', u'诞辰'],
+                     'personDeathYear': [u'忌日']}
 
 
-status_map = {'hasStatus': [u'Éí·Ý', u'Ö°Òµ']}
+status_map = {'hasStatus': [u'身份', u'职业']}
 
-work_map = {'hasText': [u'×÷Æ·', u'´´×÷', u'ÖøÊö', u'Öø×÷', u'×«Êö']}
+work_map = {'hasText': [u'作品', u'创作', u'著述', u'著作', u'撰述']}
 
-author_map = {'hasAuthor': [u'×÷Õß']}
+author_map = {'hasAuthor': [u'作者']}
 
-kinship_relation_map = {'hasChild': [u'×ÓÅ®', u'¶ùÅ®', u'º¢×Ó'],
-                        'hasSon': [u'¶ù×Ó', u'×ÓËÃ'],
-                        'hasDaughter': [u'Å®¶ù', u'¹ëÅ®', u'¹ÃÄï', u'Ñ¾Í·'],
-                        'hasHusband': [u'ÕÉ·ò', u'°®ÈË', u'ÏÈÉú', u'ÀÏ¹«', u'ÅäÅ¼', u'ÀÏ°é'],
-                        'hasParent': [u'Ë«Ç×', u'¸¸Ä¸', u'µùÄï', u'µùÂè', u'¿¼åþ'],
-                        'hasFather': [u'°Ö°Ö', u'¸¸Ç×', u'µù', u'ÀÏ×Ó', u'µùµù', u'ÀÏµù'],
-                        'hasMother': [u'ÂèÂè', u'Ä¸Ç×', u'Äï', u'ÄïÇ×'],
-                        'hasSibling': [u'ÐÖÃÃ', u'Í¬°û', u'ÐÖµÜ½ãÃÃ'],
-                        'hasBrother': [u'ÐÖµÜ', u'µÜÐÖ', u'À¥ÖÙ', u'ÑãÐÐ', u'ÌÄé¦'],
-                        'hasElderBrother': [u'¸ç¸ç', u'ÐÖ³¤'],
-                        'hasYoungerBrother': [u'µÜµÜ'],
-                        'hasSister': [u'æ¢ÃÃ', u'½ãÃÃ'],
-                        'hasElderSister': [u'½ã½ã', u'°û½ã'],
-                        'hasYoungerSister': [u'ÃÃÃÃ', u'°ûÃÃ', ],
-                        'hasWife': [u'°®ÈË', u'ÅäÅ¼', u'ÆÞæª', u'ÀÏÆÅ', u'·òÈË', u'Ì«Ì«', u'Äï×Ó', u'Ï±¸¾¶ù', u'ÀÏ°é', u'æª', u'ÆÞ×Ó', u'°®ÆÞ']}
+kinship_relation_map = {'hasChild': [u'子女', u'儿女', u'孩子'],
+                        'hasSon': [u'儿子', u'子嗣'],
+                        'hasDaughter': [u'女儿', u'闺女', u'姑娘', u'丫头'],
+                        'hasHusband': [u'丈夫', u'爱人', u'先生', u'老公', u'配偶', u'老伴'],
+                        'hasParent': [u'双亲', u'父母', u'爹娘', u'爹妈', u'考妣'],
+                        'hasFather': [u'爸爸', u'父亲', u'爹', u'老子', u'爹爹', u'老爹'],
+                        'hasMother': [u'妈妈', u'母亲', u'娘', u'娘亲'],
+                        'hasSibling': [u'兄妹', u'同胞', u'兄弟姐妹'],
+                        'hasBrother': [u'兄弟', u'弟兄', u'昆仲', u'雁行', u'棠棣'],
+                        'hasElderBrother': [u'哥哥', u'兄长'],
+                        'hasYoungerBrother': [u'弟弟'],
+                        'hasSister': [u'姊妹', u'姐妹'],
+                        'hasElderSister': [u'姐姐', u'胞姐'],
+                        'hasYoungerSister': [u'妹妹', u'胞妹', ],
+                        'hasWife': [u'爱人', u'配偶', u'妻妾', u'老婆', u'夫人', u'太太', u'娘子', u'媳妇儿', u'老伴', u'妾', u'妻子', u'爱妻']}
 
 all_relation_map = dict()
 all_relation_map.update(personal_info_map)
@@ -121,7 +121,7 @@ for v in all_relation_map.values():
         user_dict.append(word)
 
 ############################################################################################
-# Question Ïà¹Ø¶¨Òå
+# Question 相关定义
 ################################################################################
 
 
@@ -134,11 +134,11 @@ class Question:
     def get_random_generation_samples(self):
         raise NotImplementedError
 
-pattern = re.compile(u'\(.+\)|£¨.+£©')
+pattern = re.compile(u'\(.+\)|（.+）')
 
 ################################################################################
-# Question 1£¬XXµÄXXÊÇË­£¿
-# ÀîÊÀÃñµÄ¶ù×ÓÊÇË­£¿
+# Question 1，XX的XX是谁？
+# 李世民的儿子是谁？
 ################################################################################
 
 
@@ -157,8 +157,8 @@ class Question1(Question):
                       u"?s :{relation} ?o ." \
                       u"?o :personName ?y}}"
 
-        self.question.append({'question': u'{subject}µÄ{predicate}ÊÇË­£¿', 'label': u'{0}O{1}OOO'})
-        self.question.append({'question': u'{subject}µÄ{predicate}£¿', 'label': u'{0}O{1}O'})
+        self.question.append({'question': u'{subject}的{predicate}是谁？', 'label': u'{0}O{1}OOO'})
+        self.question.append({'question': u'{subject}的{predicate}？', 'label': u'{0}O{1}O'})
         self.relation.append('hasChild')
         self.relation.append('hasSon')
         self.relation.append('hasDaughter')
@@ -214,8 +214,8 @@ class Question1(Question):
         return parsed_result_list
 
 ################################################################################
-# Question 2£¬XXµÄXXÊÇÊ²Ã´£¿
-# Àî°×µÄ±ðÃûÊÇÊ²Ã´
+# Question 2，XX的XX是什么？
+# 李白的别名是什么
 ################################################################################
 
 
@@ -234,8 +234,8 @@ class Question2(Question):
                       u"?s :{relation} ?o ." \
                       u"}}"
 
-        self.question.append({'question': u'{subject}µÄ{predicate}ÊÇÊ²Ã´£¿', 'label': u'{0}O{1}OOOO'})
-        self.question.append({'question': u'{subject}µÄ{predicate}£¿', 'label': u'{0}O{1}O'})
+        self.question.append({'question': u'{subject}的{predicate}是什么？', 'label': u'{0}O{1}OOOO'})
+        self.question.append({'question': u'{subject}的{predicate}？', 'label': u'{0}O{1}O'})
         self.relation.append('personAppellation')
         self.relation.append('alternateNameOrPreviouslyUsedName')
         self.relation.append('dharmaName')
@@ -283,8 +283,8 @@ class Question2(Question):
         return parsed_result_list
 
 ################################################################################
-# Question 3£¬XXÓÐÊ²Ã´×÷Æ·£¿
-# Àî°×µÄ×÷Æ·
+# Question 3，XX有什么作品？
+# 李白的作品
 ################################################################################
 
 
@@ -303,8 +303,8 @@ class Question3(Question):
                       u"?s :{relation} ?o ." \
                       u"?o :textTitle ?y}}"
 
-        self.question.append({'question': u'{subject}µÄ{predicate}ÓÐÄÄÐ©£¿', 'label': u'{0}O{1}OOOO'})
-        self.question.append({'question': u'{subject}ÓÐÄÄÐ©{predicate}£¿', 'label': u'{0}OOO{1}O'})
+        self.question.append({'question': u'{subject}的{predicate}有哪些？', 'label': u'{0}O{1}OOOO'})
+        self.question.append({'question': u'{subject}有哪些{predicate}？', 'label': u'{0}OOO{1}O'})
         self.relation.append('hasText')
 
     def get_random_generation_samples(self, sample_num=100):
@@ -346,8 +346,8 @@ class Question3(Question):
         return parsed_result_list
 
 ################################################################################
-# Question 4£¬XXÊÇË­µÄ×÷Æ·£¿
-# µÇ»Æº×Â¥ÊÇË­µÄ×÷Æ·£¿
+# Question 4，XX是谁的作品？
+# 登黄鹤楼是谁的作品？
 ################################################################################
 
 
@@ -366,9 +366,9 @@ class Question4(Question):
                       u"?s :{relation} ?o ." \
                       u"?o :personName ?y}}"
 
-        self.question.append({'question': u'{subject}ÊÇË­µÄ×÷Æ·£¿', 'label': u'{0}OOOOOO'})
-        self.question.append({'question': u'{subject}µÄ×÷ÕßÊÇË­£¿', 'label': u'{0}OOOOOO'})
-        self.question.append({'question': u'Ë­Ð´µÄ{subject}£¿', 'label': u'OOO{0}O'})
+        self.question.append({'question': u'{subject}是谁的作品？', 'label': u'{0}OOOOOO'})
+        self.question.append({'question': u'{subject}的作者是谁？', 'label': u'{0}OOOOOO'})
+        self.question.append({'question': u'谁写的{subject}？', 'label': u'OOO{0}O'})
         self.relation.append('hasAuthor')
 
     def get_random_generation_samples(self, sample_num=100):
@@ -410,8 +410,8 @@ class Question4(Question):
         return parsed_result_list
 
 ################################################################################
-# Question 5£¬XXµÄÖ°ÒµÊÇÊ²Ã´£¿
-# »ÆÍ¥¼áÊÇ×öÊ²Ã´µÄ£¿
+# Question 5，XX的职业是什么？
+# 黄庭坚是做什么的？
 ################################################################################
 
 
@@ -430,10 +430,10 @@ class Question5(Question):
                       u"?s :{relation} ?o ." \
                       u"?o :statusName ?y}}"
 
-        self.question.append({'question': u'{subject}ÊÇ×öÊ²Ã´µÄ£¿', 'label': u'{0}OOOOOO'})
-        self.question.append({'question': u'{subject}ÊÇ¸ÉÊ²Ã´µÄ£¿', 'label': u'{0}OOOOOO'})
-        self.question.append({'question': u'{subject}µÄÖ°ÒµÊÇÊ²Ã´£¿', 'label': u'{0}OOOOOOO'})
-        self.question.append({'question': u'{subject}µÄÉí·ÝÊÇÊ²Ã´£¿', 'label': u'{0}OOOOOOO'})
+        self.question.append({'question': u'{subject}是做什么的？', 'label': u'{0}OOOOOO'})
+        self.question.append({'question': u'{subject}是干什么的？', 'label': u'{0}OOOOOO'})
+        self.question.append({'question': u'{subject}的职业是什么？', 'label': u'{0}OOOOOOO'})
+        self.question.append({'question': u'{subject}的身份是什么？', 'label': u'{0}OOOOOOO'})
         self.relation.append('hasStatus')
 
     def get_random_generation_samples(self, sample_num=100):
@@ -516,3 +516,7 @@ if __name__ == '__main__':
     samples_dict = [dict(zip(fields, s)) for s in samples]
 
     collection.insert(samples_dict)
+
+
+
+
