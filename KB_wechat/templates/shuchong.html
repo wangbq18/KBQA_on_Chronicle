@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+    #container {
+        width: 75%;
+        min-width: 500px;
+        height: 650px;
+        margin: 100px auto;
+        padding: 20px 20px 20px 30px;
+        display: block;
+        font-size: 5vh;
+        text-decoration: none;
+        border-radius: 20px;
+        color: #fff;
+        background-color: rgba(66, 76, 85, 0.3);
+        font-family: 宋体;
+        text-align: center;
+    }
+
+    #show_div {
+        display: block;
+        font-size: 2vh;
+        text-decoration: none;
+        border-radius: 20px;
+        color: #fff;
+        background-color: rgba(30, 32, 41, 0.3);
+        font-family: 宋体;
+        text-align: left;
+    }
+
+    #container h1 {
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+        font-family: 华文隶书;
+        font-size: 50px;
+    }
+
+    #container #question {
+        width: 380px;
+        height: auto;
+        line-height: 28px;
+        font-size: 15px;
+        padding-left: 10px;
+        border-radius: 3px;
+        /*border-style: none;*/
+        border: 3px solid #d4d4d4;
+        margin-top: 15px;
+        background: none;
+        color: #efefef;
+
+    }
+
+    button {
+        background: cadetblue;
+        color: white;
+        font-size: 16px;
+        padding: 7px 20px 7px 20px;
+        border-top-style: none;
+        border-right-style: none;
+        border-bottom-style: none;
+        border-left-style: none;
+        margin-left: 2px;
+        border-radius: 3px;
+    }
+
+    #container #answer {
+        margin-top: 40px;
+        width: 500px;
+        height: auto;
+        padding: 7px 5px 5px 7px;
+        min-height: 300px;
+        border: 3px solid #cacaca;
+        font-size: 20px;
+        color: #efefef;
+        border-radius: 3px;
+    }
+
+    .search_content {
+        width: 500px;
+        margin: auto;
+    }
+
+    body {
+        background-clip: border-box;
+        background-origin: padding-box;
+        background: rgba(0, 0, 0, 0) url("http://www.cadal.zju.edu.cn/bns/images/bg_qa.jpg") no-repeat fixed 50% 0;
+        background-size: cover !important;
+        position: relative;
+        z-index: 0;
+    }
+
+    ::-webkit-input-placeholder{
+        color: #efefef;
+    }
+
+    :-moz-placeholder{
+        color: #efefef;
+    }
+
+    ::-moz-placeholder{
+        color: #efefef;
+    }
+
+    :-ms-input-placeholder{
+        color: #efefef;
+    }
+
+    #show_div ul li {
+        cursor: pointer;
+    }
+
+    #show_div ul li:hover{
+        color: cadetblue;
+        text-decoration: underline;
+    }
+
+
+</style>
+<body background="http://www.cadal.zju.edu.cn/bns/images/book1.png">
+
+<div id="container">
+
+    <div class="search_content">
+        <h1>CADAL问答系统</h1>
+        <input type="text" id="question"  placeholder="请在这里输入你想查询的问题..."/>
+        <button type="button" id="submit">查询</button>
+
+        <p id="answer">我将会在这里显示答案...</p>
+
+        <button type="button" id="feedback">答案错误请点击</button>
+        <div id="show_div" style="position: absolute;"></div>
+    </div>
+
+
+</div>
+
+</body>
+
+
+
+<script type="text/javascript">
+    /**
+ * Created by Dell on 2018/4/4.
+ */
+   $$("#submit").click(function (e) {
+       var text = $$("#question").val();
+
+       if (text == "") return;
+
+       var url = "/qa?question='" + text + "'";
+
+       $$("#submit").attr("disabled", true);
+       $$.get (url, function (data) {
+           $$("#answer").text(data);
+           $$("#submit").removeAttr("disabled");
+       });
+   });
+
+   $$("#feedback").click(function (e) {
+       var url = "/feedback";
+       $$.get(url, function () {
+
+       });
+       alert('谢谢您的反馈！');
+
+   });
+
+   overShow(this, null);
+
+   function overShow(obj, e) {
+       var show_div = document.getElementById('show_div');
+       show_div.style.maxWidth = window.innerWidth / 5 + 'px';
+       show_div.style.minWidth = window.innerWidth / 6 + 'px';
+       show_div.innerHTML = "<ul><h3>示例问题：</h3>\
+                             <li>李白是什么时候出生的？</li> \
+                             <li>欧阳修有几个儿子？</li>\
+                             <li>苏轼的爸爸是谁？</li> \
+                             <li>李世民的谥号是什么？</li> \
+                             <li>朱元璋去过什么地方？</li> \
+                             <li>周敦颐的籍贯在哪？</li> \
+                             <li>朱棣活了多久？</li> \
+                             <li>纳兰性德是哪个民族的？</li> \
+                             <li>关汉卿是哪个朝代的？</li> \
+                             <li>杜甫当过什么官？</li> \
+                             <li>韩愈在哪当的府尹？</li> \
+                             <li>黄庭坚有什么作品？</li> \
+                             <li>司马懿的职业是什么？</li> \
+                             <li>柳宗元是怎么入仕的？</li> \
+                             <li>白居易认识哪些人？</li> \
+                             <li>李商隐和白居易是什么关系？</li> \
+                             <li>哪些人和欧阳修是朋友关系？</li><br> \
+                             如果你认为我的答案是错误的(指答非所问，答案不全不算错误)，请点击下方按钮。<br>";
+
+       show_div.style.left = document.getElementsByClassName('search_content')[0].offsetLeft - window.innerWidth / 4.5 + 'px';
+       show_div.style.top = '100px';
+       show_div.style.display = 'block';
+
+
+       $$("#show_div ul").click(function (e) {
+           if (e.target.tagName.toLowerCase() == 'li') {
+               $$("#question").val($$(e.target).text());
+               $$("#submit").click();
+           }
+
+       })
+
+   }
+
+   function outHide() {
+       var show_div = document.getElementById('show_div');
+       show_div.style.display = 'none';
+       show_div.innerHTML = '';
+   }
+
+</script>
+</html>
