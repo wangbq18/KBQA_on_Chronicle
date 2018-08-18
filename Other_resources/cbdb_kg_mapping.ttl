@@ -1,0 +1,2578 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix : <http://www.cadal.zju.edu.cn/bns/> .
+@prefix d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#> .
+@prefix meta: <http://www4.wiwiss.fu-berlin.de/bizer/d2r-server/metadata#> .
+
+<> a d2r:Server;
+  d2r:limitPerPropertyBridge 300;
+  .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql:///cbdb_kg";
+	d2rq:username "root";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Table appellation
+map:appellation_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :alternateNameOrPreviouslyUsedName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='别名、曾用名'";
+	.
+map:appellation_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :courtesyName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='字'";
+	.
+map:appellation_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :studioNameOrStyleName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='室名、别号'";
+	.
+map:appellation_person_id__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :posthumousName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='谥号'";
+	.
+map:appellation_person_id__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :enfeoffmentTitle;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='封爵'";
+	.
+map:appellation_person_id__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :childhoodName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='小名'";
+	.
+map:appellation_person_id__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :childhoodCourtesyName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='小字'";
+	.
+map:appellation_person_id__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :bestowedName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='赐号'";
+	.
+map:appellation_person_id__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :secularSurname;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='俗姓'";
+	.
+map:appellation_person_id__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :secularPersonalName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='俗名'";
+	.
+map:appellation_person_id__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :templeName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='庙号'";
+	.
+map:appellation_person_id__ref12 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :honorificName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='尊号'";
+	.
+map:appellation_person_id__ref13 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :templeTitle;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='庙额'";
+	.
+map:appellation_person_id__ref14 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :otherTransliteratedName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='其他译名'";
+	.
+map:appellation_person_id__ref15 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :originalSurname;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='本姓'";
+	.
+map:appellation_person_id__ref16 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :dharmaName;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='法号'";
+	.
+map:appellation_person_id__ref17 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :birthOrder;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='行第'";
+	.
+map:appellation_person_id__ref18 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personAppellation;
+	d2rq:column "appellation.altname";
+	d2rq:join "appellation.person_id => person.person_id";
+	d2rq:condition "appellation.altname_type='未详'";
+	.
+
+# Table event
+map:event a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "event/@@event.event_id@@";
+	d2rq:class :Event;
+	d2rq:classDefinitionLabel "event";
+	.
+map:event_event_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :eventName;
+	d2rq:propertyDefinitionLabel "event event_name";
+	d2rq:column "event.event_name";
+	.
+map:event_event_content a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :eventContent;
+	d2rq:propertyDefinitionLabel "event event_content";
+	d2rq:column "event.event_content";
+	.
+map:event_event_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :eventType;
+	d2rq:propertyDefinitionLabel "event event_type";
+	d2rq:column "event.event_type";
+	.
+map:event_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "event first_year";
+	d2rq:column "event.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:event_first_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYearMonth;
+	d2rq:propertyDefinitionLabel "event first_year_month";
+	d2rq:column "event.first_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:event_first_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYearDay;
+	d2rq:propertyDefinitionLabel "event first_year_day";
+	d2rq:column "event.first_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:event_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "event first_year_nianhao";
+	d2rq:column "event.first_year_nianhao";
+	.
+map:event_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "event first_year_nianhao_year";
+	d2rq:column "event.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:event_first_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :firstYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "event first_year_day_ganzhi";
+	d2rq:column "event.first_year_day_ganzhi";
+	.
+map:event_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "event last_year";
+	d2rq:column "event.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:event_last_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYearMonth;
+	d2rq:propertyDefinitionLabel "event last_year_month";
+	d2rq:column "event.last_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:event_last_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYearDay;
+	d2rq:propertyDefinitionLabel "event last_year_day";
+	d2rq:column "event.last_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:event_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "event last_year_nianhao";
+	d2rq:column "event.last_year_nianhao";
+	.
+map:event_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "event last_year_nianhao_year";
+	d2rq:column "event.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:event_last_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :lastYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "event last_year_day_ganzhi";
+	d2rq:column "event.last_year_day_ganzhi";
+	.
+
+# Table event_to_place (n:m)
+map:event_to_place__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:event;
+	d2rq:property :hasEventAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "event_to_place.place_id => place.place_id";
+	d2rq:join "event_to_place.event_id => event.event_id";
+	.
+
+# Table event_record_to_place (n:m)
+map:event_record_to_place__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :hasEventAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "event_record_to_place.place_id => place.place_id";
+	d2rq:join "event_record_to_place.event_record_id => person_to_event.event_record_id";
+	.
+
+# Table institution
+map:institution a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "institution/@@institution.institution_id@@";
+	d2rq:class :SocialInstitution;
+	d2rq:classDefinitionLabel "institution";
+	.
+map:institution_institution_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionName;
+	d2rq:propertyDefinitionLabel "institution institution_name";
+	d2rq:column "institution.institution_name";
+	.
+map:institution_institution_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionType;
+	d2rq:propertyDefinitionLabel "institution institution_type";
+	d2rq:column "institution.institution_type";
+	.
+map:institution_institution_begin_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionBeginDynasty;
+	d2rq:propertyDefinitionLabel "institution institution_begin_dynasty";
+	d2rq:column "institution.institution_begin_dynasty";
+	.
+map:institution_institution_end_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionEndDynasty;
+	d2rq:propertyDefinitionLabel "institution institution_end_dynasty";
+	d2rq:column "institution.institution_end_dynasty";
+	.
+map:institution_institution_floruit_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionFloruitDynasty;
+	d2rq:propertyDefinitionLabel "institution institution_floruit_dynasty";
+	d2rq:column "institution.institution_floruit_dynasty";
+	.
+map:institution_institution_first_known_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionFirstKnownYear;
+	d2rq:propertyDefinitionLabel "institution institution_first_known_year";
+	d2rq:column "institution.institution_first_known_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_institution_last_known_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :institutionLastKnownYear;
+	d2rq:propertyDefinitionLabel "institution institution_last_known_year";
+	d2rq:column "institution.institution_last_known_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "institution first_year";
+	d2rq:column "institution.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "institution last_year";
+	d2rq:column "institution.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "institution first_year_nianhao";
+	d2rq:column "institution.first_year_nianhao";
+	.
+map:institution_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "institution last_year_nianhao";
+	d2rq:column "institution.last_year_nianhao";
+	.
+map:institution_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "institution first_year_nianhao_year";
+	d2rq:column "institution.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "institution last_year_nianhao_year";
+	d2rq:column "institution.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:institution_place_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:institution;
+	d2rq:property :hasInstitutionAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "institution.place_id => place.place_id";
+	.
+
+# Table kinship
+map:kinship_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasKinship;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "replace(kinship.kinship_type_kinrel, '(*)', '') not regexp '^d$|^d[^dhsf]{1,2}$|^s$|^s[^a-mo-zA-MO-Z]+' and kinship.kinship_type_kinrel not in ('F','M','Z+','Z-','B+','B-','Z','B','H','H1','H2','H3','W','W1','W2','W3','W4','C')";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasFather;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='F'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasMother;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='M'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasSon;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "replace(kinship.kinship_type_kinrel, '(*)', '') regexp '^s$|^s[^a-mo-zA-MO-Z]+'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasDaughter;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "replace(kinship.kinship_type_kinrel, '(*)', '') regexp 'd$|^d[^dhsf]{1,2}$'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasElderSister;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='Z+'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasYoungerSister;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='Z-'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasElderBrother;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='B+'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasYoungerBrother;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='B-'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasBrother;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='B'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasSister;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='Z'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref12 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasHusband;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel in ('H', 'H1', 'H2', 'H3')";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref13 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasWife;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel in ('W', 'W1', 'W2', 'W3', 'W4')";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+map:kinship_person_id__ref14 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasConcubine;
+	d2rq:join "kinship.person_id => person.person_id";
+	d2rq:condition "kinship.kinship_type_kinrel='C'";
+	d2rq:uriPattern "person/@@kinship.kinship_id@@";
+	.
+
+
+# Table mode_of_entry
+map:mode_of_entry1 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Palace;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('1','12','20','24','69','70','92','112','113')"
+	.
+map:mode_of_entry2 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Kinship;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('64','74')"
+	.
+map:mode_of_entry3 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Marriage;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('72','73','144','145','146')"
+	.
+map:mode_of_entry4 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Examination;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('26','27','28','29','34','36','37','39','42','43','44','46','48','52','124','130','161','165','168','170','174','178','179','186','187','188','219','220','221','222','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','259','260','261','262','263','264','265','266','267','268','269','270','271','272','273','274','275','276','277','278','279','280','281','282','283','284','285','286','287','288','289','290','291','292','293','294','295','296','297','298','299','300','301','302','303','304','305','306','307','308','309')"
+	.
+map:mode_of_entry5 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :School;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('22','47','50','78','109','110','111','152','153','154','155','156','157','158','159','160','169','171','172','173','175','176','177','180','182','183','184','189','191','192','193','196','197','198','199','212','213','216','217')"
+	.
+map:mode_of_entry6 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :YinPrivilege;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('8','59','60','62','118','138','163')"
+	.
+map:mode_of_entry7 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Recruitment;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('14','15','107')"
+	.
+map:mode_of_entry8 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Recoomendation;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('101')"
+	.
+map:mode_of_entry9 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :MilitaryMerit;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('77','91','139','140','141','142','143')"
+	.
+map:mode_of_entry10 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :SpecializedTalents;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('13','83','116','166')"
+	.
+map:mode_of_entry11 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Surrender;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('80','105','114')"
+	.
+map:mode_of_entry12 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Purchase;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('7')"
+	.
+map:mode_of_entry13 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :DecreeOfSpecialGrace;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('54','57','94','137')"
+	.
+map:mode_of_entry14 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :Religion;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('90','162')"
+	.
+map:mode_of_entry15 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :FailedPursuitOfOffice;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('32','33')"
+	.
+map:mode_of_entry16 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :SevenSpecials;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type in ('96','132','144','145','146','147','149','150')"
+	.
+map:mode_of_entry17 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "mode_of_entry/@@mode_of_entry.person_id@@/@@mode_of_entry.entry_sequence@@/@@mode_of_entry.entry_kinship_id@@/@@mode_of_entry.entry_non_kinship_id@@/@@mode_of_entry.entry_year@@";
+	d2rq:class :OtherModes;
+	d2rq:classDefinitionLabel "mode_of_entry";
+	d2rq:condition "mode_of_entry.entry_type not in ('1','7','8','12','13','14','15','20','22','24','26','27','28','29','32','33','34','36','37','39','42','43','44','46','47','48','50','52','54','57','59','60','62','64','69','70','72','73','74','77','78','80','83','90','91','92','94','96','101','105','107','109','110','111','112','113','114','116','118','124','130','132','137','138','139','140','141','142','143','144','145','146','147','149','150','152','153','154','155','156','157','158','159','160','161','162','163','165','166','168','169','170','171','172','173','174','175','176','177','178','179','180','182','183','184','186','187','188','189','191','192','193','196','197','198','199','212','213','216','217','219','220','221','222','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','259','260','261','262','263','264','265','266','267','268','269','270','271','272','273','274','275','276','277','278','279','280','281','282','283','284','285','286','287','288','289','290','291','292','293','294','295','296','297','298','299','300','301','302','303','304','305','306','307','308','309')"
+	.
+map:mode_of_entry_entry_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entrySequence;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_sequence";
+	d2rq:column "mode_of_entry.entry_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:mode_of_entry_entry_kinship_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryKinshipType;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_kinship_type";
+	d2rq:column "mode_of_entry.entry_kinship_type";
+	.
+map:mode_of_entry_entry_non_kinship_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryNonKinshipType;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_non_kinship_type";
+	d2rq:column "mode_of_entry.entry_non_kinship_type";
+	.
+map:mode_of_entry_entry_age a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryAge;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_age";
+	d2rq:column "mode_of_entry.entry_age";
+	d2rq:datatype xsd:integer;
+	.
+map:mode_of_entry_entry_exam_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryExamRank;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_exam_rank";
+	d2rq:column "mode_of_entry.entry_exam_rank";
+	.
+map:mode_of_entry_entry_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryYear;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_year";
+	d2rq:column "mode_of_entry.entry_year";
+	d2rq:datatype xsd:integer;
+	.
+map:mode_of_entry_entry_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryNianhao;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_nianhao";
+	d2rq:column "mode_of_entry.entry_nianhao";
+	.
+map:mode_of_entry_entry_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryNianhaoYear;
+	d2rq:propertyDefinitionLabel "mode_of_entry entry_nianhao_year";
+	d2rq:column "mode_of_entry.entry_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:mode_of_entry_entry_kinship_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :hasEntryKinship;
+	d2rq:refersToClassMap map:person;
+	d2rq:join "mode_of_entry.entry_kinship_id => person.person_id";
+	.
+map:mode_of_entry_entry_non_kinship_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :hasEntryNonKinship;
+	d2rq:refersToClassMap map:person;
+	d2rq:join "mode_of_entry.entry_non_kinship_id => person.person_id";
+	.
+map:mode_of_entry_place_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :hasEntryAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "mode_of_entry.place_id => place.place_id";
+	.
+map:mode_of_entry_entry_name__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry1;
+	d2rq:property :entryName;
+	d2rq:constantValue '宫廷';
+	d2rq:condition "mode_of_entry.entry_type in ('1','12','20','24','69','70','92','112','113')"
+	.
+map:mode_of_entry_entry_name__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry2;
+	d2rq:property :entryName;
+	d2rq:constantValue '亲属';
+	d2rq:condition "mode_of_entry.entry_type in ('64','74')"
+	.
+map:mode_of_entry_entry_name__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry3;
+	d2rq:property :entryName;
+	d2rq:constantValue '姻亲';
+	d2rq:condition "mode_of_entry.entry_type in ('72','73','144','145','146')"
+	.
+map:mode_of_entry_entry_name__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry4;
+	d2rq:property :entryName;
+	d2rq:constantValue '科举';
+	d2rq:condition "mode_of_entry.entry_type in ('26','27','28','29','34','36','37','39','42','43','44','46','48','52','124','130','161','165','168','170','174','178','179','186','187','188','219','220','221','222','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','259','260','261','262','263','264','265','266','267','268','269','270','271','272','273','274','275','276','277','278','279','280','281','282','283','284','285','286','287','288','289','290','291','292','293','294','295','296','297','298','299','300','301','302','303','304','305','306','307','308','309')"
+	.
+map:mode_of_entry_entry_name__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry5;
+	d2rq:property :entryName;
+	d2rq:constantValue '同门';
+	d2rq:condition "mode_of_entry.entry_type in ('22','47','50','78','109','110','111','152','153','154','155','156','157','158','159','160','169','171','172','173','175','176','177','180','182','183','184','189','191','192','193','196','197','198','199','212','213','216','217')"
+	.
+map:mode_of_entry_entry_name__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry6;
+	d2rq:property :entryName;
+	d2rq:constantValue '恩荫';
+	d2rq:condition "mode_of_entry.entry_type in ('8','59','60','62','118','138','163')"
+	.
+map:mode_of_entry_entry_name__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry7;
+	d2rq:property :entryName;
+	d2rq:constantValue '征召';
+	d2rq:condition "mode_of_entry.entry_type in ('14','15','107')"
+	.
+map:mode_of_entry_entry_name__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry8;
+	d2rq:property :entryName;
+	d2rq:constantValue '荐举';
+	d2rq:condition "mode_of_entry.entry_type in ('101')"
+	.
+map:mode_of_entry_entry_name__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry9;
+	d2rq:property :entryName;
+	d2rq:constantValue '军功补授';
+	d2rq:condition "mode_of_entry.entry_type in ('77','91','139','140','141','142','143')"
+	.
+map:mode_of_entry_entry_name__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry10;
+	d2rq:property :entryName;
+	d2rq:constantValue '技术';
+	d2rq:condition "mode_of_entry.entry_type in ('13','83','116','166')"
+	.
+map:mode_of_entry_entry_name__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry11;
+	d2rq:property :entryName;
+	d2rq:constantValue '归降';
+	d2rq:condition "mode_of_entry.entry_type in ('80','105','114')"
+	.
+map:mode_of_entry_entry_name__ref12 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry12;
+	d2rq:property :entryName;
+	d2rq:constantValue '进纳';
+	d2rq:condition "mode_of_entry.entry_type in ('7')"
+	.
+map:mode_of_entry_entry_name__ref13 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry13;
+	d2rq:property :entryName;
+	d2rq:constantValue '特旨';
+	d2rq:condition "mode_of_entry.entry_type in ('54','57','94','137')"
+	.
+map:mode_of_entry_entry_name__ref14 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry14;
+	d2rq:property :entryName;
+	d2rq:constantValue '宗教';
+	d2rq:condition "mode_of_entry.entry_type in ('90','162')"
+	.
+map:mode_of_entry_entry_name__ref15 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry15;
+	d2rq:property :entryName;
+	d2rq:constantValue '求官';
+	d2rq:condition "mode_of_entry.entry_type in ('32','33')"
+	.
+map:mode_of_entry_entry_name__ref16 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry16;
+	d2rq:property :entryName;
+	d2rq:constantValue '七色补官';
+	d2rq:condition "mode_of_entry.entry_type in ('96','132','144','145','146','147','149','150')"
+	.
+map:mode_of_entry_entry_name__ref17 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:mode_of_entry17;
+	d2rq:property :entryName;
+	d2rq:constantValue '未知';
+	d2rq:condition "mode_of_entry.entry_type not in ('1','7','8','12','13','14','15','20','22','24','26','27','28','29','32','33','34','36','37','39','42','43','44','46','47','48','50','52','54','57','59','60','62','64','69','70','72','73','74','77','78','80','83','90','91','92','94','96','101','105','107','109','110','111','112','113','114','116','118','124','130','132','137','138','139','140','141','142','143','144','145','146','147','149','150','152','153','154','155','156','157','158','159','160','161','162','163','165','166','168','169','170','171','172','173','174','175','176','177','178','179','180','182','183','184','186','187','188','189','191','192','193','196','197','198','199','212','213','216','217','219','220','221','222','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','259','260','261','262','263','264','265','266','267','268','269','270','271','272','273','274','275','276','277','278','279','280','281','282','283','284','285','286','287','288','289','290','291','292','293','294','295','296','297','298','299','300','301','302','303','304','305','306','307','308','309')"
+	.
+map:mode_of_entry_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry1;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry2;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry3;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry4;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry5;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry6;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry7;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry8;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry9;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry10;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry11;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref12 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry12;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref13 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry13;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref14 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry14;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref15 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry15;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+map:mode_of_entry_person_id__ref16 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasEntry;
+	d2rq:refersToClassMap map:mode_of_entry16;
+	d2rq:join "mode_of_entry.person_id => person.person_id";
+	.
+
+# Table non_kinship_association
+map:non_kinship_association1 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :SocialAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('0','53','54','68','69','94','268','339','340','363','364','485','486','489','490','501','502','503','504','505','506','507','508','509','510','511','512','533','534','535','536','562','563','574','575')"
+	.
+map:non_kinship_association2 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :ScholarshipAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('10','19','20','22','23','31','34','35','36','37','40','41','42','49','50','57','58','70','71','85','108','113','117','120','126','127','140','141','172','173','193','194','208','209','213','214','217','218','227','228','231','232','251','256','257','258','259','292','293','301','302','309','310','323','324','341','342','361','362','379','380','445','456','457','467','468','473','474','475','476','487','488','499','500','541','542','558','559','572','573','576','577')"
+	.
+map:non_kinship_association3 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :FriendshipAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('9','95','277','315','316','349','350','527','528','555')"
+	.
+map:non_kinship_association4 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :PoliticsAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('1','2','4','5','7','8','11','12','13','14','15','16','17','18','21','24','25','26','27','29','30','55','56','59','60','61','64','65','66','67','74','75','76','83','84','97','104','105','106','107','118','119','128','129','130','131','136','137','138','139','142','143','144','156','157','158','159','168','180','181','183','184','185','186','189','190','197','204','205','210','211','243','244','249','250','254','260','261','262','263','269','270','273','274','278','279','281','282','287','294','299','300','303','304','305','306','351','352','354','355','356','358','359','365','366','367','388','389','464','471','472','481','482','491','492','493','494','495','496','513','514','515','516','519','520','539','540','551','552','553','554','586','587')"
+	.
+map:non_kinship_association5 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :WritingsAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('32','33','38','39','43','44','45','46','72','73','88','89','114','132','133','145','146','147','148','149','150','151','152','154','155','160','161','162','163','166','167','174','175','187','188','198','199','225','226','235','236','237','238','239','240','241','242','247','248','275','276','280','283','284','297','298','321','322','325','326','333','334','390','391','396','397','398','399','400','403','405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423','424','425','426','427','428','429','430','431','432','433','434','435','436','437','438','439','440','441','442','443','444','458','459','462','463','465','466','469','470','479','480','483','484','497','498','517','518','523','524','525','526','529','530','531','532','537','538','543','544','545','546','547','548','556','557','560','561','578','579','580','581')"
+	.
+map:non_kinship_association6 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :MilitaryAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('195','196','206','207','343','344','381','382','404','521','522','582','583','584','585')"
+	.
+map:non_kinship_association7 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :MedicineAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('47','48','477','478')"
+	.
+map:non_kinship_association8 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :ReligionAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('252','253')"
+	.
+map:non_kinship_association9 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :FamilyAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('86','87','335','336','460','461','549','550','564','565','566','567','568','569','570','571')"
+	.
+map:non_kinship_association10 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :FinanceAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type in ('219','220','223','224','446','447','448','449','450','451','452','453','454','455')"
+	.
+map:non_kinship_association11 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "non_kinship_association/@@non_kinship_association.associated_person_id@@/@@non_kinship_association.person_id@@";
+	d2rq:class :OtherAssociation;
+	d2rq:classDefinitionLabel "non_kinship_association";
+	d2rq:condition "non_kinship_association.association_type not in ('0','53','54','68','69','94','268','339','340','363','364','485','486','489','490','501','502','503','504','505','506','507','508','509','510','511','512','533','534','535','536','562','563','574','575','10','19','20','22','23','31','34','35','36','37','40','41','42','49','50','57','58','70','71','85','108','113','117','120','126','127','140','141','172','173','193','194','208','209','213','214','217','218','227','228','231','232','251','256','257','258','259','292','293','301','302','309','310','323','324','341','342','361','362','379','380','445','456','457','467','468','473','474','475','476','487','488','499','500','541','542','558','559','572','573','576','577','9','95','277','315','316','349','350','527','528','555','1','2','4','5','7','8','11','12','13','14','15','16','17','18','21','24','25','26','27','29','30','55','56','59','60','61','64','65','66','67','74','75','76','83','84','97','104','105','106','107','118','119','128','129','130','131','136','137','138','139','142','143','144','156','157','158','159','168','180','181','183','184','185','186','189','190','197','204','205','210','211','243','244','249','250','254','260','261','262','263','269','270','273','274','278','279','281','282','287','294','299','300','303','304','305','306','351','352','354','355','356','358','359','365','366','367','388','389','464','471','472','481','482','491','492','493','494','495','496','513','514','515','516','519','520','539','540','551','552','553','554','586','587','32','33','38','39','43','44','45','46','72','73','88','89','114','132','133','145','146','147','148','149','150','151','152','154','155','160','161','162','163','166','167','174','175','187','188','198','199','225','226','235','236','237','238','239','240','241','242','247','248','275','276','280','283','284','297','298','321','322','325','326','333','334','390','391','396','397','398','399','400','403','405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423','424','425','426','427','428','429','430','431','432','433','434','435','436','437','438','439','440','441','442','443','444','458','459','462','463','465','466','469','470','479','480','483','484','497','498','517','518','523','524','525','526','529','530','531','532','537','538','543','544','545','546','547','548','556','557','560','561','578','579','580','581','195','196','206','207','343','344','381','382','404','521','522','582','583','584','585','47','48','477','478','252','253','86','87','335','336','460','461','549','550','564','565','566','567','568','569','570','571','219','220','223','224','446','447','448','449','450','451','452','453','454','455')"
+	.
+map:non_kinship_association_association_name1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:property :associationName;
+	d2rq:constantValue "社会关系";
+	d2rq:condition "non_kinship_association.association_type in ('0','53','54','68','69','94','268','339','340','363','364','485','486','489','490','501','502','503','504','505','506','507','508','509','510','511','512','533','534','535','536','562','563','574','575')"
+	.
+map:non_kinship_association_association_name2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:property :associationName;
+	d2rq:constantValue "学术关系";
+	d2rq:condition "non_kinship_association.association_type in ('10','19','20','22','23','31','34','35','36','37','40','41','42','49','50','57','58','70','71','85','108','113','117','120','126','127','140','141','172','173','193','194','208','209','213','214','217','218','227','228','231','232','251','256','257','258','259','292','293','301','302','309','310','323','324','341','342','361','362','379','380','445','456','457','467','468','473','474','475','476','487','488','499','500','541','542','558','559','572','573','576','577')"
+	.
+map:non_kinship_association_association_name3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:property :associationName;
+	d2rq:constantValue "朋友关系";
+	d2rq:condition "non_kinship_association.association_type in ('9','95','277','315','316','349','350','527','528','555')"
+	.
+map:non_kinship_association_association_name4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:property :associationName;
+	d2rq:constantValue "政治关系";
+	d2rq:condition "non_kinship_association.association_type in ('1','2','4','5','7','8','11','12','13','14','15','16','17','18','21','24','25','26','27','29','30','55','56','59','60','61','64','65','66','67','74','75','76','83','84','97','104','105','106','107','118','119','128','129','130','131','136','137','138','139','142','143','144','156','157','158','159','168','180','181','183','184','185','186','189','190','197','204','205','210','211','243','244','249','250','254','260','261','262','263','269','270','273','274','278','279','281','282','287','294','299','300','303','304','305','306','351','352','354','355','356','358','359','365','366','367','388','389','464','471','472','481','482','491','492','493','494','495','496','513','514','515','516','519','520','539','540','551','552','553','554','586','587')"
+	.
+map:non_kinship_association_association_name5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:property :associationName;
+	d2rq:constantValue "著述关系";
+	d2rq:condition "non_kinship_association.association_type in ('32','33','38','39','43','44','45','46','72','73','88','89','114','132','133','145','146','147','148','149','150','151','152','154','155','160','161','162','163','166','167','174','175','187','188','198','199','225','226','235','236','237','238','239','240','241','242','247','248','275','276','280','283','284','297','298','321','322','325','326','333','334','390','391','396','397','398','399','400','403','405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423','424','425','426','427','428','429','430','431','432','433','434','435','436','437','438','439','440','441','442','443','444','458','459','462','463','465','466','469','470','479','480','483','484','497','498','517','518','523','524','525','526','529','530','531','532','537','538','543','544','545','546','547','548','556','557','560','561','578','579','580','581')"
+	.
+map:non_kinship_association_association_name6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:property :associationName;
+	d2rq:constantValue "军事关系";
+	d2rq:condition "non_kinship_association.association_type in ('195','196','206','207','343','344','381','382','404','521','522','582','583','584','585')"
+	.
+map:non_kinship_association_association_name7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:property :associationName;
+	d2rq:constantValue "医患关系";
+	d2rq:condition "non_kinship_association.association_type in ('47','48','477','478')"
+	.
+map:non_kinship_association_association_name8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:property :associationName;
+	d2rq:constantValue "宗教关系";
+	d2rq:condition "non_kinship_association.association_type in ('252','253')"
+	.
+map:non_kinship_association_association_name9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:property :associationName;
+	d2rq:constantValue "家庭关系";
+	d2rq:condition "non_kinship_association.association_type in ('86','87','335','336','460','461','549','550','564','565','566','567','568','569','570','571')"
+	.
+map:non_kinship_association_association_name10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:property :associationName;
+	d2rq:constantValue "财务关系";
+	d2rq:condition "non_kinship_association.association_type in ('219','220','223','224','446','447','448','449','450','451','452','453','454','455')"
+	.
+map:non_kinship_association_association_name11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationName;
+	d2rq:constantValue "未知关系";
+	d2rq:condition "non_kinship_association.association_type not in ('0','53','54','68','69','94','268','339','340','363','364','485','486','489','490','501','502','503','504','505','506','507','508','509','510','511','512','533','534','535','536','562','563','574','575','10','19','20','22','23','31','34','35','36','37','40','41','42','49','50','57','58','70','71','85','108','113','117','120','126','127','140','141','172','173','193','194','208','209','213','214','217','218','227','228','231','232','251','256','257','258','259','292','293','301','302','309','310','323','324','341','342','361','362','379','380','445','456','457','467','468','473','474','475','476','487','488','499','500','541','542','558','559','572','573','576','577','9','95','277','315','316','349','350','527','528','555','1','2','4','5','7','8','11','12','13','14','15','16','17','18','21','24','25','26','27','29','30','55','56','59','60','61','64','65','66','67','74','75','76','83','84','97','104','105','106','107','118','119','128','129','130','131','136','137','138','139','142','143','144','156','157','158','159','168','180','181','183','184','185','186','189','190','197','204','205','210','211','243','244','249','250','254','260','261','262','263','269','270','273','274','278','279','281','282','287','294','299','300','303','304','305','306','351','352','354','355','356','358','359','365','366','367','388','389','464','471','472','481','482','491','492','493','494','495','496','513','514','515','516','519','520','539','540','551','552','553','554','586','587','32','33','38','39','43','44','45','46','72','73','88','89','114','132','133','145','146','147','148','149','150','151','152','154','155','160','161','162','163','166','167','174','175','187','188','198','199','225','226','235','236','237','238','239','240','241','242','247','248','275','276','280','283','284','297','298','321','322','325','326','333','334','390','391','396','397','398','399','400','403','405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423','424','425','426','427','428','429','430','431','432','433','434','435','436','437','438','439','440','441','442','443','444','458','459','462','463','465','466','469','470','479','480','483','484','497','498','517','518','523','524','525','526','529','530','531','532','537','538','543','544','545','546','547','548','556','557','560','561','578','579','580','581','195','196','206','207','343','344','381','382','404','521','522','582','583','584','585','47','48','477','478','252','253','86','87','335','336','460','461','549','550','564','565','566','567','568','569','570','571','219','220','223','224','446','447','448','449','450','451','452','453','454','455')"
+	.
+map:non_kinship_association_association_occasion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationOccasion;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_occasion";
+	d2rq:column "non_kinship_association.association_occasion";
+	.
+map:non_kinship_association_association_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationSequence;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_sequence";
+	d2rq:column "non_kinship_association.association_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:non_kinship_association_association_text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationText;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_text";
+	d2rq:column "non_kinship_association.association_text";
+	.
+map:non_kinship_association_association_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationYear;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_year";
+	d2rq:column "non_kinship_association.association_year";
+	d2rq:datatype xsd:integer;
+	.
+map:non_kinship_association_association_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationNianhao;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_nianhao";
+	d2rq:column "non_kinship_association.association_nianhao";
+	.
+map:non_kinship_association_association_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationNianhaoYear;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_nianhao_year";
+	d2rq:column "non_kinship_association.association_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:non_kinship_association_association_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationMonth;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_month";
+	d2rq:column "non_kinship_association.association_month";
+	d2rq:datatype xsd:integer;
+	.
+map:non_kinship_association_association_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationDay;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_day";
+	d2rq:column "non_kinship_association.association_day";
+	d2rq:datatype xsd:integer;
+	.
+map:non_kinship_association_association_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :associationDayGanzhi;
+	d2rq:propertyDefinitionLabel "non_kinship_association association_day_ganzhi";
+	d2rq:column "non_kinship_association.association_day_ganzhi";
+	.
+map:non_kinship_association_place_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :hasAssociationAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "non_kinship_association.place_id => place.place_id";
+	.
+map:non_kinship_association_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association1;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association2;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association3;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association4;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association5;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association6;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association7;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association8;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association9;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association10;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_person_id__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasNonKinshipAssociation;
+	d2rq:refersToClassMap map:non_kinship_association11;
+	d2rq:join "non_kinship_association.person_id => person.person_id";
+	.
+map:non_kinship_association_associated_person_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:non_kinship_association1;
+	d2rq:belongsToClassMap map:non_kinship_association2;
+	d2rq:belongsToClassMap map:non_kinship_association3;
+	d2rq:belongsToClassMap map:non_kinship_association4;
+	d2rq:belongsToClassMap map:non_kinship_association5;
+	d2rq:belongsToClassMap map:non_kinship_association6;
+	d2rq:belongsToClassMap map:non_kinship_association7;
+	d2rq:belongsToClassMap map:non_kinship_association8;
+	d2rq:belongsToClassMap map:non_kinship_association9;
+	d2rq:belongsToClassMap map:non_kinship_association10;
+	d2rq:belongsToClassMap map:non_kinship_association11;
+	d2rq:property :hasAssociatedPerson;
+	d2rq:refersToClassMap map:person;
+	d2rq:join "non_kinship_association.associated_person_id => person.person_id";
+	.
+
+# Table office
+map:office a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "office/@@office.office_id@@";
+	d2rq:class :Office;
+	d2rq:classDefinitionLabel "office";
+	.
+map:office_office_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:office;
+	d2rq:property :officeTitle;
+	d2rq:propertyDefinitionLabel "office office_title";
+	d2rq:column "office.office_title";
+	.
+map:office_office_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:office;
+	d2rq:property :officeType;
+	d2rq:propertyDefinitionLabel "office office_type";
+	d2rq:column "office.office_type";
+	.
+map:office_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:office;
+	d2rq:property :dynasty;
+	d2rq:propertyDefinitionLabel "office dynasty";
+	d2rq:column "office.dynasty";
+	.
+
+# Table person
+map:person a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person/@@person.person_id@@";
+	d2rq:class :Person;
+	d2rq:classDefinitionLabel "Person";
+	.
+
+map:person_person_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personName;
+	d2rq:propertyDefinitionLabel "person person_name";
+	d2rq:column "person.person_name";
+	.
+map:person_person_surname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personSurname;
+	d2rq:propertyDefinitionLabel "person person_surname";
+	d2rq:column "person.person_surname";
+	.
+map:person_person_mingzi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personMingzi;
+	d2rq:propertyDefinitionLabel "person person_mingzi";
+	d2rq:column "person.person_mingzi";
+	.
+map:person_person_gender a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personGender;
+	d2rq:propertyDefinitionLabel "person person_gender";
+	d2rq:column "person.person_gender";
+	.
+map:person_person_death_age a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathAge;
+	d2rq:propertyDefinitionLabel "person person_death_age";
+	d2rq:column "person.person_death_age";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_ethnicity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personEthnicity;
+	d2rq:propertyDefinitionLabel "person person_ethnicity";
+	d2rq:column "person.person_ethnicity";
+	.
+map:person_person_choronym a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personChoronym;
+	d2rq:propertyDefinitionLabel "person person_choronym";
+	d2rq:column "person.person_choronym";
+	.
+map:person_person_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :dynasty;
+	d2rq:propertyDefinitionLabel "person person_dynasty";
+	d2rq:column "person.person_dynasty";
+	.
+map:person_person_birth_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthYear;
+	d2rq:propertyDefinitionLabel "person person_birth_year";
+	d2rq:column "person.person_birth_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_death_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathYear;
+	d2rq:propertyDefinitionLabel "person person_death_year";
+	d2rq:column "person.person_death_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_birth_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthMonth;
+	d2rq:propertyDefinitionLabel "person person_birth_month";
+	d2rq:column "person.person_birth_month";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_death_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathMonth;
+	d2rq:propertyDefinitionLabel "person person_death_month";
+	d2rq:column "person.person_death_month";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_birth_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthDay;
+	d2rq:propertyDefinitionLabel "person person_birth_day";
+	d2rq:column "person.person_birth_day";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_death_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathDay;
+	d2rq:propertyDefinitionLabel "person person_death_day";
+	d2rq:column "person.person_death_day";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_birth_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthNianhao;
+	d2rq:propertyDefinitionLabel "person person_birth_nianhao";
+	d2rq:column "person.person_birth_nianhao";
+	.
+map:person_person_death_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathNianhao;
+	d2rq:propertyDefinitionLabel "person person_death_nianhao";
+	d2rq:column "person.person_death_nianhao";
+	.
+map:person_person_birth_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthNianhaoYear;
+	d2rq:propertyDefinitionLabel "person person_birth_nianhao_year";
+	d2rq:column "person.person_birth_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_death_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathNianhaoYear;
+	d2rq:propertyDefinitionLabel "person person_death_nianhao_year";
+	d2rq:column "person.person_death_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_birth_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personBirthDayGanzhi;
+	d2rq:propertyDefinitionLabel "person person_birth_day_ganzhi";
+	d2rq:column "person.person_birth_day_ganzhi";
+	.
+map:person_person_death_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personDeathDayGanzhi;
+	d2rq:propertyDefinitionLabel "person person_death_day_ganzhi";
+	d2rq:column "person.person_death_day_ganzhi";
+	.
+map:person_person_floruit_earliest_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitEarliestYear;
+	d2rq:propertyDefinitionLabel "person person_floruit_earliest_year";
+	d2rq:column "person.person_floruit_earliest_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_floruit_latest_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitLatestYear;
+	d2rq:propertyDefinitionLabel "person person_floruit_latest_year";
+	d2rq:column "person.person_floruit_latest_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_floruit_earliest_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitEarliestNianhao;
+	d2rq:propertyDefinitionLabel "person person_floruit_earliest_nianhao";
+	d2rq:column "person.person_floruit_earliest_nianhao";
+	.
+map:person_person_floruit_latest_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitLatestNianhao;
+	d2rq:propertyDefinitionLabel "person person_floruit_latest_nianhao";
+	d2rq:column "person.person_floruit_latest_nianhao";
+	.
+map:person_person_floruit_earliest_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitEarliestNianhaoYear;
+	d2rq:propertyDefinitionLabel "person person_floruit_earliest_nianhao_year";
+	d2rq:column "person.person_floruit_earliest_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_person_floruit_latest_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :personFloruitLatestNianhaoYear;
+	d2rq:propertyDefinitionLabel "person person_floruit_latest_nianhao_year";
+	d2rq:column "person.person_floruit_latest_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table person_to_event
+map:person_to_event a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_event/@@person_to_event.event_id@@/@@person_to_event.person_id@@";
+	d2rq:class :RelationBetweenPersonAndEvent;
+	d2rq:classDefinitionLabel "person_to_event";
+	.
+map:person_to_event_event_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventSequence;
+	d2rq:propertyDefinitionLabel "person_to_event event_sequence";
+	d2rq:column "person_to_event.event_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_event_event_content a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventContent;
+	d2rq:propertyDefinitionLabel "person_to_event event_content";
+	d2rq:column "person_to_event.event_content";
+	.
+map:person_to_event_event_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventType;
+	d2rq:propertyDefinitionLabel "person_to_event event_type";
+	d2rq:column "person_to_event.event_type";
+	.
+map:person_to_event_event_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventYear;
+	d2rq:propertyDefinitionLabel "person_to_event event_year";
+	d2rq:column "person_to_event.event_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_event_event_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventNianhao;
+	d2rq:propertyDefinitionLabel "person_to_event event_nianhao";
+	d2rq:column "person_to_event.event_nianhao";
+	.
+map:person_to_event_event_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventNianhaoYear;
+	d2rq:propertyDefinitionLabel "person_to_event event_nianhao_year";
+	d2rq:column "person_to_event.event_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_event_event_Month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventMonth;
+	d2rq:propertyDefinitionLabel "person_to_event event_Month";
+	d2rq:column "person_to_event.event_Month";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_event_event_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventDay;
+	d2rq:propertyDefinitionLabel "person_to_event event_day";
+	d2rq:column "person_to_event.event_day";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_event_event_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :eventDayGanzhi;
+	d2rq:propertyDefinitionLabel "person_to_event event_day_ganzhi";
+	d2rq:column "person_to_event.event_day_ganzhi";
+	.
+map:person_to_event_event_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_event;
+	d2rq:property :hasEvent;
+	d2rq:refersToClassMap map:event;
+	d2rq:join "person_to_event.event_id => event.event_id";
+	.
+map:person_to_event_person_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithEvent;
+	d2rq:refersToClassMap map:person_to_event;
+	d2rq:join "person_to_event.person_id => person.person_id";
+	.
+
+# Table person_to_institution
+map:person_to_institution1 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_institution/@@person_to_institution.person_id@@/@@person_to_institution.institution_id@@/@@person_to_institution.institution_type|urlify@@";
+	d2rq:class :Abbot;
+	d2rq:classDefinitionLabel "person_to_institution";
+	d2rq:condition "person_to_institution.institution_type='19'"
+	.
+map:person_to_institution2 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_institution/@@person_to_institution.person_id@@/@@person_to_institution.institution_id@@/@@person_to_institution.institution_type|urlify@@";
+	d2rq:class :Cleric;
+	d2rq:classDefinitionLabel "person_to_institution";
+	d2rq:condition "person_to_institution.institution_type='20'"
+	.
+map:person_to_institution3 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_institution/@@person_to_institution.person_id@@/@@person_to_institution.institution_id@@/@@person_to_institution.institution_type|urlify@@";
+	d2rq:class :OtherInstitutionRelation;
+	d2rq:classDefinitionLabel "person_to_institution";
+	d2rq:condition "person_to_institution.institution_type not in ('19','20')"
+	.
+map:person_to_institution_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "person_to_institution first_year";
+	d2rq:column "person_to_institution.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_institution_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "person_to_institution last_year";
+	d2rq:column "person_to_institution.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_institution_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "person_to_institution first_year_nianhao";
+	d2rq:column "person_to_institution.first_year_nianhao";
+	.
+map:person_to_institution_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "person_to_institution last_year_nianhao";
+	d2rq:column "person_to_institution.last_year_nianhao";
+	.
+map:person_to_institution_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "person_to_institution first_year_nianhao_year";
+	d2rq:column "person_to_institution.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_institution_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "person_to_institution last_year_nianhao_year";
+	d2rq:column "person_to_institution.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_institution_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithSocialInstitution;
+	d2rq:refersToClassMap map:person_to_institution1;
+	d2rq:join "person_to_institution.person_id => person.person_id";
+	.
+map:person_to_institution_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithSocialInstitution;
+	d2rq:refersToClassMap map:person_to_institution2;
+	d2rq:join "person_to_institution.person_id => person.person_id";
+	.
+map:person_to_institution_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithSocialInstitution;
+	d2rq:refersToClassMap map:person_to_institution3;
+	d2rq:join "person_to_institution.person_id => person.person_id";
+	.
+map:person_to_institution_institution_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_institution1;
+	d2rq:belongsToClassMap map:person_to_institution2;
+	d2rq:belongsToClassMap map:person_to_institution3;
+	d2rq:property :hasInstitution;
+	d2rq:refersToClassMap map:institution;
+	d2rq:join "person_to_institution.institution_id => institution.institution_id";
+	.
+
+# Table person_to_place
+map:person_to_place1 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :BirthPlace;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='8'"
+	.
+map:person_to_place2 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :BasicAffiliation;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='1'"
+	.
+map:person_to_place3 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :MovedTo;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='2'"
+	.
+map:person_to_place4 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :FormerAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='3'"
+	.
+map:person_to_place5 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :LastKnownAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='4'"
+	.
+map:person_to_place6 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :AncestralAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='5'"
+	.
+map:person_to_place7 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :ActualResidence;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='6'"
+	.
+map:person_to_place8 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :HouseholdRegistration;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='7'"
+	.
+map:person_to_place9 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :BurialAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='9'"
+	.
+map:person_to_place10 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :DeathAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='10'"
+	.
+map:person_to_place11 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :VisitedOrWentTo;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='12'"
+	.
+map:person_to_place12 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :AlternateBasicAffiliation;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='14'"
+	.
+map:person_to_place13 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :HouseholdAddress;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type='16'"
+	.
+map:person_to_place14 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person_to_place/@@person_to_place.person_id@@/@@person_to_place.place_id@@/@@person_to_place.place_sequence@@";
+	d2rq:class :OtherAddressRelation;
+	d2rq:classDefinitionLabel "person_to_place";
+	d2rq:condition "person_to_place.place_type not in ('1','2','3','4','5','6','7','8','9','10','12','14','16')"
+	.
+map:person_to_place_place_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :addressSequence;
+	d2rq:propertyDefinitionLabel "person_to_place place_sequence";
+	d2rq:column "person_to_place.place_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "person_to_place first_year";
+	d2rq:column "person_to_place.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_first_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYearMonth;
+	d2rq:propertyDefinitionLabel "person_to_place first_year_month";
+	d2rq:column "person_to_place.first_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_first_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYearDay;
+	d2rq:propertyDefinitionLabel "person_to_place first_year_day";
+	d2rq:column "person_to_place.first_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "person_to_place first_year_nianhao";
+	d2rq:column "person_to_place.first_year_nianhao";
+	.
+map:person_to_place_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "person_to_place first_year_nianhao_year";
+	d2rq:column "person_to_place.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_first_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :firstYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "person_to_place first_year_day_ganzhi";
+	d2rq:column "person_to_place.first_year_day_ganzhi";
+	.
+map:person_to_place_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "person_to_place last_year";
+	d2rq:column "person_to_place.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_last_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYearMonth;
+	d2rq:propertyDefinitionLabel "person_to_place last_year_month";
+	d2rq:column "person_to_place.last_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_last_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYearDay;
+	d2rq:propertyDefinitionLabel "person_to_place last_year_day";
+	d2rq:column "person_to_place.last_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "person_to_place last_year_nianhao";
+	d2rq:column "person_to_place.last_year_nianhao";
+	.
+map:person_to_place_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "person_to_place last_year_nianhao_year";
+	d2rq:column "person_to_place.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:person_to_place_last_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :lastYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "person_to_place last_year_day_ganzhi";
+	d2rq:column "person_to_place.last_year_day_ganzhi";
+	.
+map:person_to_place_place_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person_to_place1;
+	d2rq:belongsToClassMap map:person_to_place2;
+	d2rq:belongsToClassMap map:person_to_place3;
+	d2rq:belongsToClassMap map:person_to_place4;
+	d2rq:belongsToClassMap map:person_to_place5;
+	d2rq:belongsToClassMap map:person_to_place6;
+	d2rq:belongsToClassMap map:person_to_place7;
+	d2rq:belongsToClassMap map:person_to_place8;
+	d2rq:belongsToClassMap map:person_to_place9;
+	d2rq:belongsToClassMap map:person_to_place10;
+	d2rq:belongsToClassMap map:person_to_place11;
+	d2rq:belongsToClassMap map:person_to_place12;
+	d2rq:belongsToClassMap map:person_to_place13;
+    d2rq:belongsToClassMap map:person_to_place14;
+	d2rq:property :hasAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "person_to_place.place_id => place.place_id";
+	.
+map:person_to_place_person_id__ref1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place1;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place2;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref3 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place3;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place4;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref5 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place5;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref6 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place6;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref7 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place7;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref8 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place8;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref9 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place9;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref10 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place10;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref11 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place11;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref12 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place12;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref13 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place13;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+map:person_to_place_person_id__ref14 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasRelationWithPlace;
+	d2rq:refersToClassMap map:person_to_place14;
+	d2rq:join "person_to_place.person_id => person.person_id";
+	.
+
+# Table person_to_text (n:m)
+map:person_to_text__link1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasText;
+	d2rq:refersToClassMap map:text;
+	d2rq:join "person_to_text.person_id => person.person_id";
+	d2rq:join "person_to_text.text_id => text.text_id";
+	.
+map:person_to_text__link2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :hasAuthor;
+	d2rq:refersToClassMap map:person;
+	d2rq:join "person_to_text.person_id => person.person_id";
+	d2rq:join "person_to_text.text_id => text.text_id";
+	.
+
+# Table place
+map:place a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "place/@@place.place_id@@";
+	d2rq:class :Place;
+	d2rq:classDefinitionLabel "place";
+	.
+map:place_place_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeAddress;
+	d2rq:propertyDefinitionLabel "place place_name";
+	d2rq:column "place.place_name";
+	.
+map:place_place_admin_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeAdminType;
+	d2rq:propertyDefinitionLabel "place place_admin_type";
+	d2rq:column "place.place_admin_type";
+	.
+map:place_place_x_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeXCoordinate;
+	d2rq:propertyDefinitionLabel "place place_x_coordinate";
+	d2rq:column "place.place_x_coordinate";
+	.
+map:place_place_y_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeYCoordinate;
+	d2rq:propertyDefinitionLabel "place place_y_coordinate";
+	d2rq:column "place.place_y_coordinate";
+	.
+map:place_place_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeFirstYear;
+	d2rq:propertyDefinitionLabel "place place_first_year";
+	d2rq:column "place.place_first_year";
+	.
+map:place_place_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :placeLastYear;
+	d2rq:propertyDefinitionLabel "place place_last_year";
+	d2rq:column "place.place_last_year";
+	.
+
+# Table place_to_place (n:m self-join)
+map:place_to_place__link1 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :isPartOf;
+	d2rq:join "place_to_place.place_id => place.place_id";
+	d2rq:uriPattern "place/@@place_to_place.belongs_to_id@@";
+	.
+
+map:place_to_place__link2 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:place;
+	d2rq:property :hasContained;
+	d2rq:join "place_to_place.belongs_to_id => place.place_id";
+	d2rq:uriPattern "place/@@place_to_place.place_id@@";
+	.
+
+# Table posted_to_place (n:m)
+map:posted_to_place__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :hasPostingAddress;
+	d2rq:refersToClassMap map:place;
+	d2rq:join "posted_to_place.place_id => place.place_id";
+	d2rq:join "posted_to_place.posting_id => posting.posting_id";
+	.
+
+# Table posting
+map:posting a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "posting/@@posting.office_id@@/@@posting.person_id@@/@@posting.posting_id@@";
+	d2rq:class :Posting;
+	d2rq:classDefinitionLabel "posting";
+	.
+map:posting_posting_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :postingSequence;
+	d2rq:propertyDefinitionLabel "posting posting_sequence";
+	d2rq:column "posting.posting_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "posting first_year";
+	d2rq:column "posting.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "posting last_year";
+	d2rq:column "posting.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_first_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYearMonth;
+	d2rq:propertyDefinitionLabel "posting first_year_month";
+	d2rq:column "posting.first_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_last_year_month a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYearMonth;
+	d2rq:propertyDefinitionLabel "posting last_year_month";
+	d2rq:column "posting.last_year_month";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_first_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYearDay;
+	d2rq:propertyDefinitionLabel "posting first_year_day";
+	d2rq:column "posting.first_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_last_year_day a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYearDay;
+	d2rq:propertyDefinitionLabel "posting last_year_day";
+	d2rq:column "posting.last_year_day";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "posting first_year_nianhao";
+	d2rq:column "posting.first_year_nianhao";
+	.
+map:posting_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "posting last_year_nianhao";
+	d2rq:column "posting.last_year_nianhao";
+	.
+map:posting_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "posting first_year_nianhao_year";
+	d2rq:column "posting.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "posting last_year_nianhao_year";
+	d2rq:column "posting.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:posting_first_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :firstYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "posting first_year_day_ganzhi";
+	d2rq:column "posting.first_year_day_ganzhi";
+	.
+map:posting_last_year_day_ganzhi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :lastYearDayGanzhi;
+	d2rq:propertyDefinitionLabel "posting last_year_day_ganzhi";
+	d2rq:column "posting.last_year_day_ganzhi";
+	.
+map:posting_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :dynasty;
+	d2rq:propertyDefinitionLabel "posting dynasty";
+	d2rq:column "posting.dynasty";
+	.
+map:posting_office_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:posting;
+	d2rq:property :hasPostingOffice;
+	d2rq:refersToClassMap map:office;
+	d2rq:join "posting.office_id => office.office_id";
+	.
+map:posting_person_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasPosting;
+	d2rq:refersToClassMap map:posting;
+	d2rq:join "posting.person_id => person.person_id";
+	.
+
+# Table status
+map:status a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "person/@@status.person_id@@/status/@@status.status_sequence@@/@@status.status_name|urlify@@";
+	d2rq:class :Status;
+	d2rq:classDefinitionLabel "status";
+	.
+map:status_status_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :statusName;
+	d2rq:propertyDefinitionLabel "status status_name";
+	d2rq:column "status.status_name";
+	.
+map:status_status_sequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :statusSequence;
+	d2rq:propertyDefinitionLabel "status status_sequence";
+	d2rq:column "status.status_sequence";
+	d2rq:datatype xsd:integer;
+	.
+map:status_first_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :firstYear;
+	d2rq:propertyDefinitionLabel "status first_year";
+	d2rq:column "status.first_year";
+	d2rq:datatype xsd:integer;
+	.
+map:status_last_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :lastYear;
+	d2rq:propertyDefinitionLabel "status last_year";
+	d2rq:column "status.last_year";
+	d2rq:datatype xsd:integer;
+	.
+map:status_first_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :firstYearNianhao;
+	d2rq:propertyDefinitionLabel "status first_year_nianhao";
+	d2rq:column "status.first_year_nianhao";
+	.
+map:status_first_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :firstYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "status first_year_nianhao_year";
+	d2rq:column "status.first_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:status_last_year_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :lastYearNianhao;
+	d2rq:propertyDefinitionLabel "status last_year_nianhao";
+	d2rq:column "status.last_year_nianhao";
+	.
+map:status_last_year_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:status;
+	d2rq:property :lastYearNianhaoYear;
+	d2rq:propertyDefinitionLabel "status last_year_nianhao_year";
+	d2rq:column "status.last_year_nianhao_year";
+	d2rq:datatype xsd:integer;
+	.
+map:status_person_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:person;
+	d2rq:property :hasStatus;
+	d2rq:refersToClassMap map:status;
+	d2rq:join "status.person_id => person.person_id";
+	.
+
+# Table text
+map:text a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "text/@@text.text_id@@";
+	d2rq:class :Text;
+	d2rq:classDefinitionLabel "text";
+	.
+map:text_text_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textTitle;
+	d2rq:propertyDefinitionLabel "text text_title";
+	d2rq:column "text.text_title";
+	.
+map:text_text_genre a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textGenre;
+	d2rq:propertyDefinitionLabel "text text_genre";
+	d2rq:column "text.text_genre";
+	.
+map:text_text_composition_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textCompositionYear;
+	d2rq:propertyDefinitionLabel "text text_composition_year";
+	d2rq:column "text.text_composition_year";
+	d2rq:datatype xsd:integer;
+	.
+map:text_text_composition_nianhao a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textCompositionNianhao;
+	d2rq:propertyDefinitionLabel "text text_composition_nianhao";
+	d2rq:column "text.text_composition_nianhao";
+	.
+map:text_dynasty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :dynasty;
+	d2rq:propertyDefinitionLabel "text dynasty";
+	d2rq:column "text.dynasty";
+	.
+map:text_text_extant a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textExtant;
+	d2rq:propertyDefinitionLabel "text text_extant";
+	d2rq:column "text.text_extant";
+	.
+map:text_text_composition_nianhao_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:text;
+	d2rq:property :textCompositionNianhaoYear;
+	d2rq:propertyDefinitionLabel "text text_extant";
+	d2rq:column "text.text_composition_nianhao_year";
+	.
