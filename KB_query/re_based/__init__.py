@@ -4,7 +4,7 @@
 
 @contact: hsl7698590@gmail.com
 
-@file: nn_query.py
+@file: __init__.py.py
 
 @time: 18-10-30
 

@@ -23,8 +23,7 @@ dir_path = os.path.dirname(os.path.abspath(__file__))
 main_dir_path = os.path.abspath(os.path.join(dir_path, '..'))
 sys.path.append(main_dir_path)
 
-from handle import Handle, QA, FeedBack
-from KB_query import query_main
+from KB_query.re_based import re_query
 import record
 
 
@@ -44,9 +43,9 @@ class Shuchong:
         return render.shuchong()
 
 if __name__ == '__main__':
-    web.query = query_main.Query([os.path.join(main_dir_path, 'KB_query/external_dict/office_title.txt'),
-                                  os.path.join(main_dir_path, 'KB_query/external_dict/person_name.txt'),
-                                  os.path.join(main_dir_path, 'KB_query/external_dict/place_name.txt')])
+    web.query = re_query.Query([os.path.join(main_dir_path, 'KB_query/external_dict/office_title.txt'),
+                                os.path.join(main_dir_path, 'KB_query/external_dict/person_name.txt'),
+                                os.path.join(main_dir_path, 'KB_query/external_dict/place_name.txt')])
     web.recorder = record.Recorder(db_name='chronicle_collected_data',
                                    collection_names={'success': 'success', 'failure': 'failure',
                                                      'unknown': 'unknown', 'wrong': 'wrong'})

@@ -34,8 +34,6 @@ if __name__ == '__main__':
     while True:
         print('Please Input: ')
         chars = list(input())
-        generated_question = list()
-
         input_tensor = torch.LongTensor([word2idx.get(c, 0) for c in chars]).view(-1, 1).cuda()
 
         score, tags = model(input_tensor)
