@@ -54,12 +54,12 @@ class JenaFuseki:
     def print_result_to_string(self, query_result):
         query_head, query_results = self.parse_result_into_list(query_result)
         for h in query_head:
-            print h, ' ' * 5,
-        print
+            print(h, ' ' * 5,)
+        print()
         for qr in query_results:
             for _, value in qr.iteritems():
-                print value, ' ',
-            print
+                print(value, ' ',)
+            print()
 
     def get_sparql_result_value(self, query_result):
         _, query_results = self.parse_result_into_list(query_result)
@@ -484,21 +484,24 @@ if __name__ == '__main__':
     questions.append(Question1(sparql_point))
     questions.append(Question2(sparql_point))
     questions.append(Question3(sparql_point))
-    questions.append(Question4(sparql_point))
+    # questions.append(Question4(sparql_point))
     questions.append(Question5(sparql_point))
 
     samples = list()
+    brackets_pattern = re.compile('[\(\)（）]')
     while True:
         q = random.choice(questions)
         tmp = q.get_random_generation_samples()
         if len(tmp) != 0:
             for t in tmp:
                 if t not in samples:
+                    if re.search(brackets_pattern, t[2]):
+                        continue
                     user_dict.append(t[5])
                     samples.append(t)
 
             count = len(samples)
-            print 'Count:{0}'.format(count)
+            print('Count:{0}'.format(count))
 
             if count > 100000:
                 break

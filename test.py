@@ -2,7 +2,7 @@
 import pandas as pd
 import chardet
 import re
+import torch
 
-a = [[1, 2, '2'], [1, 3, '2']]
-
-print [1, 2, '3'] in a
+a = torch.LongTensor([[1]*64])
+print(a.size())

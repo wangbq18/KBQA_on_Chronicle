@@ -1,19 +1,17 @@
 # encoding=utf-8
-
 """
-
 @author: SimmerChan
 
 @contact: hsl7698590@gmail.com
 
 @file: data_importer.py
 
-@time: 8/14/18
+@time: 18-10-23
 
 @desc:
 
-"""
 
+"""
 from torch.utils.data import Dataset
 import torch
 import pymongo
@@ -21,7 +19,7 @@ import os
 import json
 
 
-class TripleQuestion(Dataset):
+class QuestionType(Dataset):
     def __init__(self):
         # TODO connect to mongodb and fetch triple and question
         connection = pymongo.MongoClient()
@@ -29,26 +27,27 @@ class TripleQuestion(Dataset):
         collection = db['pattern_auto_generated_data']
         word2idx_path = './resources/word2idx.json'
         idx2word_path = './resources/idx2word.json'
+        cat2idx_path = './resources/cat2idx.json'
+        idx2cat_path = './resources/idx2cat.json'
         dict_exists = os.path.exists(word2idx_path)
+
         if dict_exists:
             self.word2idx = json.load(open(word2idx_path, 'r', encoding='utf-8'))
             self.idx2word = json.load(open(idx2word_path, 'r', encoding='utf-8'))
+            self.cat2idx = json.load(open(cat2idx_path, 'r', encoding='utf-8'))
+            self.idx2cat = json.load(open(idx2cat_path, 'r', encoding='utf-8'))
         else:
-            self.word2idx = {'SOS': 0, 'EOS': 1, 'PAD': 2, '<S>': 3, '<P>': 4}
-            self.idx2word = {0: 'SOS', 1: 'EOS', 2: 'PAD', 3: '<S>', 4: '<P>'}
+            self.word2idx = {'<unk>': 0, 'PAD': 1}
+            self.idx2word = {0: '<unk>', 1: 'PAD'}
+            self.cat2idx = {}
+            self.idx2cat = {}
 
         self.data = list()
         self.max_len = 0
+
         for i in collection.find():
-            tokens = i['segmented'].split()
-            # TODO replace sub predicate with placeholder
-            try:
-                sub_index = tokens.index(i['subject_word'])
-                pre_index = tokens.index(i['predicate_word'])
-                tokens[sub_index] = '<S>'
-                tokens[pre_index] = '<P>'
-            except ValueError:
-                continue
+            tokens = list(i['question'])
+            category = i['predicate']
 
             tokens_num = len(tokens)
 
@@ -59,32 +58,28 @@ class TripleQuestion(Dataset):
                         self.word2idx[w] = idx
                         self.idx2word[idx] = w
 
-                if i['subject_word'] not in self.word2idx:
-                    idx = len(self.word2idx)
-                    self.word2idx[i['subject_word']] = idx
-                    self.idx2word[idx] = i['subject_word']
+                if category not in self.cat2idx:
+                    idx = len(self.cat2idx)
+                    self.cat2idx[category] = idx
+                    self.idx2cat[idx] = category
 
-                if i['predicate_word'] not in self.word2idx:
-                    idx = len(self.word2idx)
-                    self.word2idx[i['predicate_word']] = idx
-                    self.idx2word[idx] = i['predicate_word']
+            self.data.append((tokens, category))
 
-            self.data.append((i['subject_word'], i['predicate_word'], tokens))
             if tokens_num > self.max_len:
                 self.max_len = tokens_num
 
         if not dict_exists:
             json.dump(self.word2idx, open(word2idx_path, 'w', encoding='utf-8'))
             json.dump(self.idx2word, open(idx2word_path, 'w', encoding='utf-8'))
+            json.dump(self.cat2idx, open(cat2idx_path, 'w', encoding='utf-8'))
+            json.dump(self.idx2cat, open(idx2cat_path, 'w', encoding='utf-8'))
 
     def __getitem__(self, index):
-        subject_word, predicate_word, tokens = self.data[index]
-        subject_word_idx = self.word2idx[subject_word]
-        predicate_word_idx = self.word2idx[predicate_word]
+        tokens, category = self.data[index]
+        category_idx = self.cat2idx[category]
         question_idx = [self.word2idx[t] for t in tokens] + \
-                       [self.word2idx['EOS']] + \
                        [self.word2idx['PAD'] for _ in range(self.max_len - len(tokens))]
-        return torch.LongTensor([subject_word_idx, predicate_word_idx]), torch.LongTensor(question_idx)
+        return torch.LongTensor(question_idx), torch.LongTensor([category_idx])
 
     def __len__(self):
         return len(self.data)
