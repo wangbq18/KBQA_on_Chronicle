@@ -8,11 +8,11 @@
 
 ## KB_query
 
-基于正则和模板的查询功能模块，sparql engine采用apache jena fuseki。
+包含两个模块，re_based与nn_based。re_based实现了基于正则和模板的语义解析及查询功能；nn_based实现了基于深度学习模型的语义解析，查询则是基于知识库实体名称匹配打分机制。sparql engine采用apache jena fuseki。
 
-## KB_wechat
+## KB_service
 
-基于web.py的服务端模块，可对接微信公众号提供服务。也包含了一个简单的web前端页面，可提供基于网页的访问和查询。
+基于web.py的服务端模块，可对接微信公众号提供服务；也包含了一个简单的web前端页面，提供基于网页的访问和查询。
 
 ## Question_Generation
 
