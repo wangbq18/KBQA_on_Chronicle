@@ -58,7 +58,7 @@ class JenaFuseki:
         _, query_results = self.parse_result_into_list(query_result)
         values = list()
         for qr in query_results:
-            for _, value in qr.iteritems():
+            for _, value in qr.items():
                 values.append(value)
         return values
 

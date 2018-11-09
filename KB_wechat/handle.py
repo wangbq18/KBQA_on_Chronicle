@@ -15,8 +15,8 @@
 """
 import hashlib
 import web
-import receive
-import reply
+from KB_wechat import receive
+from KB_wechat import reply
 
 
 class Handle(object):
@@ -47,7 +47,7 @@ class Handle(object):
     def POST(self):
         try:
             webData = web.data()
-            # print "Handle Post webdata is ", webData  # 后台打日志
+            # print("Handle Post webdata is ", webData)
             recMsg = receive.parse_xml(webData)
             if isinstance(recMsg, receive.Msg):
                 toUser = recMsg.FromUserName
@@ -56,15 +56,23 @@ class Handle(object):
                 # TODO 处理用户发来的文本消息
                 if recMsg.MsgType == 'text':
                     if recMsg.Content == '1':
-                        web.recorder.dump_wrong_record(user_id=toUser)
-                        content = '感谢您的反馈！'
+                        status = web.config.recorder.dump_wrong_record(user_id=toUser)
+                        if status == 'success':
+                            content = '感谢您的反馈！'
+                        else:
+                            content = '最近你没有问我什么问题呢~'
                         replyMsg = reply.TextMsg(toUser, fromUser, content)
                         return replyMsg.send()
                     else:
-                        status, sparql, content = web.query.get_response(recMsg.Content)
+                        status, sparql, content, approach_type = web.config.query.get_response(recMsg.Content)
                         replyMsg = reply.TextMsg(toUser, fromUser, content)
-                        web.recorder.dump_to_mongodb(status=status, sparql=sparql, question=recMsg.Content, answer=content, user_id=toUser)
-                        print('User:{0}\nQuestion:{1}\nAnswer:{2}\n\n\n'.format(toUser, recMsg.Content, content))
+                        web.config.recorder.dump_to_mongodb(status=status,
+                                                     sparql=sparql,
+                                                     question=recMsg.Content,
+                                                     answer=content,
+                                                     user_id=toUser,
+                                                     approach_type=approach_type)
+                        # print('User:{0}\nQuestion:{1}\nAnswer:{2}\n\n\n'.format(toUser, recMsg.Content, content))
                         return replyMsg.send()
 
                 elif recMsg.MsgType == 'image':
@@ -112,13 +120,13 @@ class QA:
         data = web.input()
         client_ip = web.ctx['ip']
         question = data['question']
-        status, sparql, content = web.query.get_response(question.encode('utf-8'))
-        web.recorder.dump_to_mongodb(status=status, sparql=sparql, question=question, answer=content,
-                                     user_id=client_ip)
+        status, sparql, content, approach_type = web.config.query.get_response(question)
+        web.config.recorder.dump_to_mongodb(status=status, sparql=sparql, question=question, answer=content,
+                                            user_id=client_ip, approach_type=approach_type)
         return content
 
 
 class FeedBack:
     def GET(self):
         client_ip = web.ctx['ip']
-        web.recorder.dump_wrong_record(user_id=client_ip)
+        web.config.recorder.dump_wrong_record(user_id=client_ip)

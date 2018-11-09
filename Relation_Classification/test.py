@@ -9,9 +9,6 @@
 @time: 18-10-23
 
 @desc:
-李白有哪些作品？
-黄宗羲的著作有哪些？
-李白的著作有哪些？
 """
 import torch
 import json

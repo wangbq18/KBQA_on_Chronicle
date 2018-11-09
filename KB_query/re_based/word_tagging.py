@@ -39,7 +39,12 @@ class TaggedWords:
         :param sentence:
         :return:
         """
-        return [Word(word.encode('utf-8'), tag) for word, tag in pseg.cut(sentence)]
+        # TODO for python 2.7
+        # wo = [Word(word.encode('utf-8'), tag) for word, tag in pseg.cut(sentence)]
+
+        # TODO for python 3+
+        wo = [Word(word, tag) for word, tag in pseg.cut(sentence)]
+        return wo
 
 
 # if __name__ == '__main__':

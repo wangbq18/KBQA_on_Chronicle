@@ -118,7 +118,7 @@ class PersonalOtherInfoQuestionSet:
             if w.pos == pos_person:
                 e = u"?s :personName '{person}' ." \
                     u"?s {keyword} ?o ." \
-                    u"?o :personName ?x".format(person=w.token.decode('utf-8'), keyword=keyword)
+                    u"?o :personName ?x".format(person=w.token, keyword=keyword)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -146,7 +146,7 @@ class PersonalOtherInfoQuestionSet:
             if w.pos == pos_person:
                 e = u"?s :personName '{person}' ." \
                     u"?s {keyword} ?o ." \
-                    u"?o :personName ?x".format(person=w.token.decode('utf-8'), keyword=keyword)
+                    u"?o :personName ?x".format(person=w.token, keyword=keyword)
 
                 sparql = SPARQL_COUNT_TEM.format(prefix=SPARQL_PREXIX,
                                                  select=select,
@@ -170,7 +170,7 @@ class PersonalOtherInfoQuestionSet:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasRelationWithPlace ?n ."
                      u"?n :hasAddress ?m. "
-                     u"?m :placeAddress ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?m :placeAddress ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -202,7 +202,7 @@ class PersonalOtherInfoQuestionSet:
                      u"?s :hasRelationWithPlace ?n ."
                      u"?n a {keyword} ."
                      u"?n :hasAddress ?m ."
-                     u"?m :placeAddress ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'),
+                     u"?m :placeAddress ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token,
                                                                           keyword=keyword)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
@@ -227,7 +227,7 @@ class PersonalOtherInfoQuestionSet:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasPosting ?p ."
                      u"?p :hasPostingOffice ?o. "
-                     u"?o :officeTitle ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?o :officeTitle ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -251,10 +251,10 @@ class PersonalOtherInfoQuestionSet:
 
         for w in word_objects:
             if w.pos == pos_person:
-                person_word = w.token.decode('utf-8')
+                person_word = w.token
 
             if w.pos == pos_office:
-                office_word = w.token.decode('utf-8')
+                office_word = w.token
 
         if person_word is not None and office_word is not None:
             e = (u"?s :personName '{person}' ."
@@ -286,10 +286,10 @@ class PersonalOtherInfoQuestionSet:
 
         for w in word_objects:
             if w.pos == pos_person:
-                person_word = w.token.decode('utf-8')
+                person_word = w.token
 
             if w.pos == pos_office:
-                office_word = w.token.decode('utf-8')
+                office_word = w.token
 
         if person_word is not None and office_word is not None:
             e = (u"?s :personName '{person}' ."
@@ -319,7 +319,7 @@ class PersonalOtherInfoQuestionSet:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasText ?t ."
-                     u"?t :textTitle ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?t :textTitle ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -342,7 +342,7 @@ class PersonalOtherInfoQuestionSet:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasStatus ?t ."
-                     u"?t :statusName ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?t :statusName ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -366,7 +366,7 @@ class PersonalOtherInfoQuestionSet:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasEntry ?t ."
                      u"?t :entrySequence ?sequence ."
-                     u"?t :entryName ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?t :entryName ?x. " + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -398,7 +398,7 @@ class PersonalOtherInfoQuestionSet:
                      u"?s :hasNonKinshipAssociation ?n ."
                      u"?n rdf:type {keyword} ."
                      u"?n :hasAssociatedPerson ?p ."
-                     u"?p :personName ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'),
+                     u"?p :personName ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token,
                                                                           keyword=keyword)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
@@ -437,7 +437,7 @@ class PersonalOtherInfoQuestionSet:
              u"?s :hasNonKinshipAssociation ?n ."
              u"?n :hasAssociatedPerson ?p ."
              u"?p :personName '{person_b}' ."
-             u"?n :associationName ?x" + SPARQL_SPECIFIC_TEM).format(person=person1.decode('utf-8'), person_b=person2.decode('utf-8'))
+             u"?n :associationName ?x" + SPARQL_SPECIFIC_TEM).format(person=person1, person_b=person2)
 
         sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                           select=select,
@@ -461,7 +461,7 @@ class PersonalOtherInfoQuestionSet:
                 e = (u"?s :personName '{person}' ."
                      u"?s :hasNonKinshipAssociation ?n ."
                      u"?n :hasAssociatedPerson ?p ."
-                     u"?p :personName ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?p :personName ?x" + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -632,7 +632,7 @@ class PersonalBasicInfoQuestionSet:
         for w in word_objects:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
-                     u"" u"?s {keyword} ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'),
+                     u"" u"?s {keyword} ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token,
                                                                             keyword=keyword)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
@@ -655,7 +655,7 @@ class PersonalBasicInfoQuestionSet:
         for w in word_objects:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
-                     u"?s :personDeathAge ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?s :personDeathAge ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -677,7 +677,7 @@ class PersonalBasicInfoQuestionSet:
         for w in word_objects:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
-                     u"?s :personEthnicity ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?s :personEthnicity ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -700,7 +700,7 @@ class PersonalBasicInfoQuestionSet:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
                      u"?s :dynasty ?x ." + SPARQL_SPECIFIC_TEM) \
-                    .format(person=w.token.decode('utf-8'))
+                    .format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -723,7 +723,7 @@ class PersonalBasicInfoQuestionSet:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
                      u"?s :personBirthYear ?x" + SPARQL_SPECIFIC_TEM).format(
-                    person=w.token.decode('utf-8'))
+                    person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,
@@ -745,7 +745,7 @@ class PersonalBasicInfoQuestionSet:
         for w in word_objects:
             if w.pos == pos_person:
                 e = (u"?s :personName '{person}' ."
-                     u"?s :personDeathYear ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token.decode('utf-8'))
+                     u"?s :personDeathYear ?x ." + SPARQL_SPECIFIC_TEM).format(person=w.token)
 
                 sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREXIX,
                                                   select=select,

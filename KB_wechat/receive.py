@@ -36,10 +36,11 @@ class Msg(object):
         self.CreateTime = xmlData.find('CreateTime').text
         self.MsgType = xmlData.find('MsgType').text
 
+
 class TextMsg(Msg):
     def __init__(self, xmlData):
         Msg.__init__(self, xmlData)
-        self.Content = xmlData.find('Content').text.encode("utf-8")
+        self.Content = xmlData.find('Content').text
 
 
 class ImageMsg(Msg):
@@ -52,4 +53,4 @@ class ImageMsg(Msg):
 class EventMsg(Msg):
     def __init__(self, xmlData):
         Msg.__init__(self, xmlData)
-        self.Event = xmlData.find('Event').text.encode("utf-8")
+        self.Event = xmlData.find('Event').text

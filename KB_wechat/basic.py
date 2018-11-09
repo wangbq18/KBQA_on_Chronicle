@@ -31,6 +31,7 @@ class Basic:
                    "client_credential&appid=%s&secret=%s" % (appId, appSecret))
         urlResp = urllib.urlopen(postUrl)
         urlResp = json.loads(urlResp.read())
+        print(urlResp)
 
         self.__accessToken = urlResp['access_token']
         self.__leftTime = urlResp['expires_in']

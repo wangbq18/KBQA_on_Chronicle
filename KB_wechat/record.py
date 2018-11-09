@@ -47,9 +47,9 @@ class Recorder:
             del self.tmp_container
             self.tmp_container = tmp
 
-    def dump_to_mongodb(self, status, sparql, question, answer, user_id):
+    def dump_to_mongodb(self, status, sparql, question, answer, user_id, approach_type):
         if status == 'failure':
-            self.failure_collection.insert({'user_id': user_id, 'question': question})
+            self.failure_collection.insert({'user_id': user_id, 'question': question, 'approach_type': approach_type})
 
         elif status == 'unknown':
             self.unknown_collection.insert({'user_id': user_id, 'question': question, 'sparql': sparql})
@@ -60,15 +60,26 @@ class Recorder:
 
             # TODO 此用户没有提问，暂存当前问题。
             if len(self.tmp_container[user_id]) == 0:
-                self.tmp_container[user_id].append((status, sparql, question, answer, user_id))
+                self.tmp_container[user_id].append((status, sparql, question, answer, user_id, approach_type))
 
             # TODO 用户已经提问过，把上一个问题保存到数据库中，暂存当前问题。
             else:
-                self.tmp_container[user_id].append((status, sparql, question, answer, user_id))
-                _, sparql, question, answer, user_id = self.tmp_container[user_id].pop(0)
-                self.success_collection.insert({'user_id': user_id, 'question': question, 'sparql': sparql, 'answer': answer})
+                self.tmp_container[user_id].append((status, sparql, question, answer, user_id, approach_type))
+                _, sparql, question, answer, user_id, approach_type = self.tmp_container[user_id].pop(0)
+                self.success_collection.insert({'user_id': user_id,
+                                                'question': question,
+                                                'sparql': sparql,
+                                                'answer': answer,
+                                                'approach_type': approach_type})
 
     def dump_wrong_record(self, user_id):
         if len(self.tmp_container[user_id]) != 0:
-            _, sparql, question, answer, user_id = self.tmp_container[user_id].pop(0)
-            self.wrong_collection.insert({'user_id': user_id, 'question': question, 'sparql': sparql, 'answer': answer})
+            _, sparql, question, answer, user_id, approach_type = self.tmp_container[user_id].pop(0)
+            self.wrong_collection.insert({'user_id': user_id,
+                                          'question': question,
+                                          'sparql': sparql,
+                                          'answer': answer,
+                                          'approach_type': approach_type})
+            return 'success'
+        else:
+            return 'fail'

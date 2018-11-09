@@ -10,7 +10,6 @@
 
 @desc:
 
-李白的作品是什么
 """
 import torch
 import json
@@ -18,12 +17,10 @@ import os
 import sys
 
 
-class NNQury(object):
-    def __init__(self):
-        ner_model_path = '../../NER/check_point/model.pkl'
-        relation_model_path = '../../Relation_Classification/check_point/model.pkl'
-        sys.path.append('../../NER')
-        sys.path.append('../../Relation_Classification')
+class NNQuery(object):
+    def __init__(self, ner_root_path, rc_root_path):
+        ner_model_path = os.path.join(ner_root_path, 'check_point/model.pkl')
+        relation_model_path = os.path.join(rc_root_path, 'check_point/model.pkl')
         if not os.path.exists(ner_model_path) or not os.path.exists(relation_model_path):
             raise ValueError("Model doesn't exist!")
 
@@ -33,14 +30,14 @@ class NNQury(object):
         self.ner_model.lstm.flatten_parameters()
         self.relation_model.train(False)
 
-        rc_word2idx_path = '../../Relation_Classification/resources/word2idx.json'
-        rc_idx2word_path = '../../Relation_Classification/resources/idx2word.json'
-        rc_cat2idx_path = '../../Relation_Classification/resources/cat2idx.json'
-        rc_idx2cat_path = '../../Relation_Classification/resources/idx2cat.json'
-        ner_word2idx_path = '../../NER/resources/word2idx.json'
-        ner_idx2word_path = '../../NER/resources/idx2word.json'
-        ner_tag2idx_path = '../../NER/resources/tag2idx.json'
-        ner_idx2tag_path = '../../NER/resources/idx2tag.json'
+        rc_word2idx_path = os.path.join(rc_root_path, 'resources/word2idx.json')
+        rc_idx2word_path = os.path.join(rc_root_path, 'resources/idx2word.json')
+        rc_cat2idx_path = os.path.join(rc_root_path, 'resources/cat2idx.json')
+        rc_idx2cat_path = os.path.join(rc_root_path, 'resources/idx2cat.json')
+        ner_word2idx_path = os.path.join(ner_root_path, 'resources/word2idx.json')
+        ner_idx2word_path = os.path.join(ner_root_path, 'resources/idx2word.json')
+        ner_tag2idx_path = os.path.join(ner_root_path, 'resources/tag2idx.json')
+        ner_idx2tag_path = os.path.join(ner_root_path, 'resources/idx2tag.json')
         self.rc_word2idx = json.load(open(rc_word2idx_path, 'r', encoding='utf-8'))
         self.rc_idx2word = json.load(open(rc_idx2word_path, 'r', encoding='utf-8'))
         self.rc_cat2idx = json.load(open(rc_cat2idx_path, 'r', encoding='utf-8'))
@@ -66,11 +63,13 @@ class NNQury(object):
                     entities.append(question[start:index])
                     start = -1
 
-        print(entities)
-
         # TODO Relation Classification
         input_tensor = torch.LongTensor([self.rc_word2idx.get(c, 0) for c in chars]).view(1, -1).cuda()
         scores = self.relation_model(input_tensor)
         idx = torch.argmax(scores, dim=-1).cpu().item()
+        relation = self.rc_idx2cat[str(idx)]
 
-        print(self.rc_idx2cat[str(idx)])
+        return entities, relation
+
+    def get_response(self, question):
+        pass
